@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_de_stock_flutter/screens/homePage.dart';
-import 'package:gestion_de_stock_flutter/widgets/tabNavigationBar.dart';
+import 'package:gestion_de_stock_flutter/routes/app_router.dart';
+import 'package:gestion_de_stock_flutter/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Homepage(), bottomNavigationBar: TabNavigationBar()),
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
