@@ -8,10 +8,10 @@ class AppRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => const LoginPage());
 
       case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => SignupPage());
+        return MaterialPageRoute(builder: (_) => const SignupPage());
 
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardPage());
