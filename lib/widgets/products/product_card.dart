@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_de_stock_flutter/core/theme/app_colors.dart';
+import 'package:gestion_de_stock_flutter/core/utils/random_colors.dart';
 import 'package:gestion_de_stock_flutter/data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
               height: 80,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: AppRandomColors.getRandomColor(),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(Icons.inventory, size: 30),
