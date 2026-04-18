@@ -40,5 +40,14 @@ class DummyData {
       categoryId: 'c2',
       createdAt: DateTime.now(),
     ),
+    Product(
+      id: 'p4',
+      name: 'Orange',
+      price: 5,
+      stock: 70,
+      minStock: 25,
+      categoryId: 'c2',
+      createdAt: DateTime.now(),
+    ),
   ];
 }
