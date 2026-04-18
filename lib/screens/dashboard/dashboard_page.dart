@@ -15,7 +15,7 @@ class __DashboardPageState extends State<DashboardPage> {
   int index = 0;
 
   final pages = [
-    const IndexPage(),
+    IndexPage(),
     const ProductsPage(),
     CategoriesPage(),
     const SettingsPage(),
