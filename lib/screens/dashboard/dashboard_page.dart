@@ -14,11 +14,11 @@ class DashboardPage extends StatefulWidget {
 class __DashboardPageState extends State<DashboardPage> {
   int index = 0;
 
-  final pages = const [
-    IndexPage(),
-    ProductsPage(),
+  final pages = [
+    const IndexPage(),
+    const ProductsPage(),
     CategoriesPage(),
-    SettingsPage(),
+    const SettingsPage(),
   ];
 
   final titles = const ["Dashboard", "Products", "Categories", "Settings"];
