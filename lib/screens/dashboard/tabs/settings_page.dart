@@ -7,11 +7,18 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        child: const Text("Log out"),
+      child: MaterialButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(context, AppRoutes.login);
+          print("pressed");
         },
+        onLongPress: () => print("login press..."),
+        color: Colors.blue,
+        minWidth: 300,
+        height: 40,
+        textColor: Colors.white,
+        padding: EdgeInsets.symmetric(vertical: 20),
+
+        child: const Text("click me"),
       ),
     );
   }
