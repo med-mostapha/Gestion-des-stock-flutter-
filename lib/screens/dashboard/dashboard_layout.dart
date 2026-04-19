@@ -18,7 +18,7 @@ class __DashboardPageState extends State<DashboardPage> {
     IndexPage(),
     const ProductsPage(),
     CategoriesPage(),
-    const SettingsPage(),
+    SettingsPage(),
   ];
 
   final titles = const ["Dashboard", "Products", "Categories", "Settings"];

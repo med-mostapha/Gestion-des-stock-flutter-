@@ -41,6 +41,7 @@ class _SettingsPage extends State<SettingsPage> {
             inactiveTrackColor: Colors.grey,
             activeThumbColor: Colors.white,
             inactiveThumbColor: Colors.white,
+
             onChanged: (val) {
               setState(() {
                 darkMode = val;
@@ -51,7 +52,7 @@ class _SettingsPage extends State<SettingsPage> {
         MaterialButton(
           minWidth: 100,
           height: 40,
-          color: Colors.red[400],
+          color: const Color.fromARGB(255, 230, 117, 115),
 
           onPressed: () {
             Navigator.pushReplacementNamed(context, AppRoutes.login);
