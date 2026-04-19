@@ -19,6 +19,8 @@ class IndexPage extends StatelessWidget {
       crossAxisCount: 2,
       childAspectRatio: 2,
 
+      // crossAxisSpacing: 10,
+      // mainAxisSpacing: 10,
       children: [
         StatsCard(
           title: "Products",

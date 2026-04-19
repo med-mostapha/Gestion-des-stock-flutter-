@@ -28,7 +28,7 @@ class StatsCard extends StatelessWidget {
         maxHeight: 70,
       ),
 
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(6),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColors.white,

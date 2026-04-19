@@ -37,7 +37,6 @@ class _ProductsPageState extends State<ProductsPage> {
     return Column(
       children: [
         SearchBarApp(onChanged: search),
-
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.all(12),
