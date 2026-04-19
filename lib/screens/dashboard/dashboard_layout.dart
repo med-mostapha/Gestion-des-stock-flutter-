@@ -35,6 +35,7 @@ class __DashboardPageState extends State<DashboardPage> {
         ),
         elevation: 1,
         shadowColor: const Color.fromARGB(255, 223, 223, 223),
+
         backgroundColor: Colors.white,
         centerTitle: true,
         automaticallyImplyLeading: false,

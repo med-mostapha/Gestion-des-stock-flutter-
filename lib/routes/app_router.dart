@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_de_stock_flutter/screens/dashboard/dashboard_page.dart';
+import 'package:gestion_de_stock_flutter/screens/dashboard/dashboard_layout.dart';
 import '../screens/auth/login_page.dart';
 import '../screens/auth/signup_page.dart';
 import 'app_routes.dart';
