@@ -1,91 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_de_stock_flutter/core/theme/app_colors.dart';
-import 'package:gestion_de_stock_flutter/core/utils/random_colors.dart';
 import 'package:gestion_de_stock_flutter/data/models/product_model.dart';
+import 'package:intl/intl.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
-  const ProductCard({super.key, required this.product, this.onTap});
+  const ProductCard({
+    super.key,
+    required this.product,
+    this.onTap,
+    this.onLongPress,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final bool isOutOfStock = product.stock <= 0;
+    final bool isLowStock = product.stock <= product.minStock && !isOutOfStock;
+
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
       borderRadius: BorderRadius.circular(16),
-
       child: Container(
-        padding: const EdgeInsets.all(16),
+        height: 220,
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Color(0x14000000),
-              blurRadius: 6,
-              offset: Offset(1, 2),
+              color: const Color.fromARGB(255, 201, 201, 201),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize
+              .min, // Pour la colonne occupe le moins espace possible
           children: [
-            // image placeholder
+            // Placeholder
             Container(
-              height: 80,
+              height: 90,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppRandomColors.getRandomColor(),
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.inventory, size: 30),
+              child: Icon(
+                Icons.inventory_2_outlined,
+                size: 30,
+                color: const Color.fromARGB(255, 26, 24, 90),
+              ),
             ),
 
-            const SizedBox(height: 10),
-            // name
+            const SizedBox(height: 12),
+
+            // Pr name
             Text(
               product.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: AppColors.textPrimary,
+              ),
             ),
 
-            const SizedBox(height: 4),
-
-            // category
+            // Pr category
             Text(
-              "product.categoryName",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Colors.grey, fontSize: 12),
+              "ID: ${product.categoryId}",
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 12,
+              ),
             ),
 
-            const SizedBox(height: 10),
-            // price + stock ( ma vat tem )
+            // date
+            Text(
+              DateFormat('dd MMM yyyy').format(product.createdAt),
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
+
+            const Spacer(),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
               children: [
                 Text(
-                  "${product.price} MRU",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  "${product.price.toStringAsFixed(0)} MRU",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.primary,
+                    fontSize: 14,
+                  ),
                 ),
 
+                // Status
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
+                    horizontal: 6,
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: product.stock > 0 ? Colors.green : Colors.redAccent,
-                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6),
                   ),
-
                   child: Text(
-                    product.stock > 0 ? "In Stock" : "Out",
-                    style: TextStyle(fontSize: 10, color: AppColors.white),
+                    isOutOfStock ? "Out" : "Qty: ${product.stock}",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: _getStatusColor(isOutOfStock, isLowStock),
+                    ),
                   ),
                 ),
               ],
@@ -94,5 +126,11 @@ class ProductCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _getStatusColor(bool isOut, bool isLow) {
+    if (isOut) return AppColors.error;
+    if (isLow) return Colors.orange;
+    return AppColors.success;
   }
 }
