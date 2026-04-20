@@ -8,12 +8,12 @@ import 'package:gestion_de_stock_flutter/widgets/dashboard/stats_card.dart';
 class IndexPage extends StatelessWidget {
   IndexPage({super.key});
 
-  final ProductRepository product_repo = ProductRepository();
-  final CategoryRepository categoris_repo = CategoryRepository();
+  final ProductRepository productRepo = ProductRepository();
+  final CategoryRepository categorisRepo = CategoryRepository();
   @override
   Widget build(BuildContext context) {
-    final products = product_repo.getAllProducts();
-    final categoris = categoris_repo.getAllCategories();
+    final products = productRepo.getAllProducts();
+    final categoris = categorisRepo.getAllCategories();
 
     return GridView.count(
       crossAxisCount: 2,
