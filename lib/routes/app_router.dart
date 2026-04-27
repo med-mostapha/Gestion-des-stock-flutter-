@@ -12,13 +12,22 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const MainPage());
 
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const LoginPage(),
+          transitionDuration: Duration.zero,
+        );
 
       case AppRoutes.signup:
-        return MaterialPageRoute(builder: (_) => const SignUpPage());
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const SignUpPage(),
+          transitionDuration: Duration.zero,
+        );
 
       case AppRoutes.dashboard:
-        return MaterialPageRoute(builder: (_) => const DashboardPage());
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const DashboardPage(),
+          transitionDuration: Duration.zero,
+        );
 
       default:
         return MaterialPageRoute(
