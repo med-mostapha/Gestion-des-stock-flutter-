@@ -23,7 +23,7 @@ class _AddCategoryState extends State<AddCategoryPage> {
   void _saveCategory() {
     if (formstate.currentState!.validate()) {
       final newCategory = Category(
-        id: DateTime.now.toString(),
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         name: nameController.text.trim(),
         description: descriptionController.text.trim(),
       );

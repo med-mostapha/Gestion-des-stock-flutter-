@@ -41,6 +41,7 @@ class _CategoriesState extends State<CategoriesPage> {
               separatorBuilder: (context, index) => const SizedBox(height: 12),
             ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "fab_categories",
         backgroundColor: AppColors.white,
 
         onPressed: () async {
