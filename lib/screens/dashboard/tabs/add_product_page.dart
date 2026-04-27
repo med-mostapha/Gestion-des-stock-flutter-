@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_de_stock_flutter/core/theme/app_colors.dart';
 import 'package:gestion_de_stock_flutter/data/models/product_model.dart';
+import 'package:gestion_de_stock_flutter/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddProductPage extends StatefulWidget {
   const AddProductPage({super.key});
@@ -185,11 +187,17 @@ class _AddProductState extends State<AddProductPage> {
         contentPadding: const EdgeInsets.symmetric(vertical: 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border.withOpacity(0.5)),
+          // ignore: deprecated_member_use
+          borderSide: BorderSide(
+            color: AppColors.border.withValues(alpha: 0.5),
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border.withOpacity(0.5)),
+          // ignore: deprecated_member_use
+          borderSide: BorderSide(
+            color: AppColors.border.withValues(alpha: 0.5),
+          ),
         ),
       ),
     );
@@ -197,7 +205,7 @@ class _AddProductState extends State<AddProductPage> {
 
   Widget _buildCategoryDropdown() {
     return DropdownButtonFormField<String>(
-      value: selectedCategory,
+      initialValue: selectedCategory,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.white,
@@ -227,6 +235,8 @@ class _AddProductState extends State<AddProductPage> {
         categoryId: selectedCategory,
         createdAt: DateTime.now(),
       );
+
+      context.read<ProductProvider>().addProduct(product);
       Navigator.pop(context, product);
     }
   }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_de_stock_flutter/core/theme/app_colors.dart';
 import 'package:gestion_de_stock_flutter/data/models/product_model.dart';
-import 'package:gestion_de_stock_flutter/data/repositories/product_repository.dart';
+import 'package:gestion_de_stock_flutter/providers/product_provider.dart';
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/add_product_page.dart';
 import 'package:gestion_de_stock_flutter/widgets/products/product_card.dart';
 import 'package:gestion_de_stock_flutter/widgets/ui/app_search_bar.dart';
+import 'package:provider/provider.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -14,23 +15,13 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  final ProductRepository repository = ProductRepository();
-
-  late List<Product> products;
-  List<Product> filtered = [];
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
-    products = repository.getAllProducts();
-    filtered = products;
-  }
-
-  void search(String query) {
-    setState(() {
-      filtered = products
-          .where((p) => p.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductProvider>().loadProducts();
     });
   }
 
@@ -53,12 +44,8 @@ class _ProductsPageState extends State<ProductsPage> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
               onPressed: () {
-                setState(() {
-                  products.removeWhere((p) => p.id == product.id);
-                  filtered = products;
-                });
+                context.read<ProductProvider>().deleteProduct(product.id);
                 Navigator.pop(context);
-
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("${product.name} deleted")),
                 );
@@ -76,14 +63,22 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<ProductProvider>();
+
+    // search work on provider list
+    final filtered = provider.search(_searchQuery);
+
     return Scaffold(
       backgroundColor: AppColors.background,
-
       body: Column(
         children: [
-          SearchBarApp(onChanged: search),
+          SearchBarApp(
+            onChanged: (query) => setState(() {
+              _searchQuery = query;
+            }),
+          ),
 
-          /// total status
+          /// total products counter
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
             child: Row(
@@ -105,7 +100,11 @@ class _ProductsPageState extends State<ProductsPage> {
 
           // Products list
           Expanded(
-            child: filtered.isEmpty
+            child: provider.isLoading
+                ? _buildSkeleton()
+                : provider.error != null
+                ? _buildError(provider.error!)
+                : filtered.isEmpty
                 ? _buildEmptyState()
                 : GridView.builder(
                     padding: const EdgeInsets.symmetric(
@@ -137,22 +136,40 @@ class _ProductsPageState extends State<ProductsPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: "fab_products",
         onPressed: () async {
-          final newProduct = await Navigator.push(
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddProductPage()),
           );
-
-          if (newProduct != null && newProduct is Product) {
-            setState(() {
-              products.add(newProduct);
-              filtered = products;
-            });
-          }
         },
         backgroundColor: AppColors.primary,
         elevation: 4,
         child: const Icon(Icons.add, color: Colors.white, size: 30),
       ),
+    );
+  }
+
+  Widget _buildSkeleton() {
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.72,
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 15,
+      ),
+      itemCount: 6,
+      itemBuilder: (_, _) => Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildError(String message) {
+    return Center(
+      child: Text(message, style: const TextStyle(color: AppColors.error)),
     );
   }
 
