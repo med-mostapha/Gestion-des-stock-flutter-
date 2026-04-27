@@ -135,6 +135,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
       // add new product btn
       floatingActionButton: FloatingActionButton(
+        heroTag: "fab_products",
         onPressed: () async {
           final newProduct = await Navigator.push(
             context,
