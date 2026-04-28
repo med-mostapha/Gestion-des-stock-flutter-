@@ -32,6 +32,16 @@ class ProductProvider extends ChangeNotifier {
     }
   }
 
+  int get totalProducts => _products.length;
+
+  int get lowStockCount =>
+      _products.where((p) => p.stock <= p.minStock && p.stock > 0).length;
+
+  int get outOfStockCount => _products.where((p) => p.stock <= 0).length;
+
+  double get totalStockValue =>
+      _products.fold(0, (sum, p) => sum + (p.price * p.stock));
+
   void addProduct(Product product) {
     _products.add(product);
     notifyListeners();
