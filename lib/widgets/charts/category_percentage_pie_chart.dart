@@ -41,7 +41,7 @@ class CategoryPercentagePieChart extends StatelessWidget {
     final entries = filtered.entries.toList();
 
     final sections = List.generate(entries.length, (index) {
-      final percentage = (entries[index].value / total) * 100;
+      // final percentage = (entries[index].value / total) * 100;
       return PieChartSectionData(
         value: entries[index].value,
         color: _colors[index % _colors.length],

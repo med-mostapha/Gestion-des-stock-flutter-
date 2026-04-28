@@ -4,6 +4,10 @@ import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/categories_page.
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/index_page.dart';
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/products_page.dart';
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/settings_page.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/category_provider.dart';
+import '../../providers/product_provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -39,15 +43,36 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: AppColors.background,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        // Optional: Add a profile icon or notification icon for a SaaS look
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications_none_rounded,
-              color: AppColors.textPrimary,
-            ),
+
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.notifications_none_rounded,
+            color: AppColors.textPrimary,
           ),
+        ),
+        actions: [
+          if (index != 3)
+            IconButton(
+              onPressed: () {
+                switch (index) {
+                  case 0:
+                    context.read<ProductProvider>().loadProducts();
+                    context.read<CategoryProvider>().loadCategories();
+                    break;
+                  case 1:
+                    context.read<ProductProvider>().loadProducts();
+                    break;
+                  case 2:
+                    context.read<CategoryProvider>().loadCategories();
+                    break;
+                }
+              },
+              icon: const Icon(
+                Icons.refresh_rounded,
+                color: AppColors.textPrimary,
+              ),
+            ),
         ],
       ),
 
