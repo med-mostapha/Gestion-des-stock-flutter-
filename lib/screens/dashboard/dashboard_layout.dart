@@ -78,6 +78,7 @@ class _DashboardPageState extends State<DashboardPage> {
             fontSize: 12,
           ),
           unselectedLabelStyle: const TextStyle(fontSize: 12),
+
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.grid_view_rounded),
