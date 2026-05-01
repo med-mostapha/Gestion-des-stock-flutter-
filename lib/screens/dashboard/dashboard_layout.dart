@@ -5,7 +5,6 @@ import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/index_page.dart'
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/products_page.dart';
 import 'package:gestion_de_stock_flutter/screens/dashboard/tabs/settings_page.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/category_provider.dart';
 import '../../providers/product_provider.dart';
 
@@ -45,7 +44,6 @@ class _DashboardPageState extends State<DashboardPage> {
         automaticallyImplyLeading: false,
 
         leading: IconButton(
-          
           onPressed: () {},
           icon: const Icon(
             Icons.notifications_none_rounded,
