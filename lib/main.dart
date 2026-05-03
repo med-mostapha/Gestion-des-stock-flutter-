@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gestion_de_stock_flutter/core/theme/app_theme.dart';
+import 'package:gestion_de_stock_flutter/generated/l10n.dart';
 import 'package:gestion_de_stock_flutter/providers/category_provider.dart';
 import 'package:gestion_de_stock_flutter/providers/product_provider.dart';
 import 'package:gestion_de_stock_flutter/routes/app_router.dart';
@@ -21,6 +23,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        title: 'Gestion des Stock',
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.main,
         onGenerateRoute: AppRouter.generateRoute,
